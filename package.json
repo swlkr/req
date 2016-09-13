@@ -1,0 +1,33 @@
+{
+  "name": "req",
+  "version": "1.0.0",
+  "description": "Zero dependency promise http lib for the browser",
+  "main": "app.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/swlkr/req.git"
+  },
+  "keywords": [
+    "http",
+    "client",
+    "zero dependencies"
+  ],
+  "author": "swlkr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/swlkr/req/issues"
+  },
+  "homepage": "https://github.com/swlkr/req#readme",
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "jsdom": "^9.5.0"
+  },
+  "ava": {
+    "require": [
+      "./test/helpers/setup-browser-env.js"
+    ]
+  }
+}
