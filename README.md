@@ -5,7 +5,7 @@ Zero dependency json http client for the browser
 ## Install
 
 ```bash
-$ npm install --save req
+$ npm install --save-dev @swlkr/req
 ```
 
 ## Use
@@ -13,7 +13,7 @@ $ npm install --save req
 ```javascript
 // Get request
 
-import Http from "req";
+import Http from "@swlkr/req";
 
 Http
 .get("http://your-api.com/some-url")
@@ -53,5 +53,6 @@ try {
 
 ### Test
 ```bash
+npm install
 npm test
 ```
