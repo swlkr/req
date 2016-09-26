@@ -2,7 +2,7 @@
   "name": "@swlkr/req",
   "version": "1.0.0",
   "description": "Zero dependency promise-based http library for the browser",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "ava"
   },
