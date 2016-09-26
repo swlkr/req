@@ -19,7 +19,7 @@ test("build request with a valid request object should set request headers", t =
   t.deepEqual({
     url: "http://url.com",
     method: "POST",
-    body: null,
+    body: "{}",
     headers: {"content-type":"application/json", accept:"application/json"}
   }, requestObject)
 });
@@ -30,7 +30,7 @@ test("build request with a valid request object with a lower case method should 
   t.deepEqual({
     url: "http://url.com",
     method: "POST",
-    body: null,
+    body: "{}",
     headers: {"content-type":"application/json", accept:"application/json"}
   }, requestObject)
 });
@@ -41,7 +41,7 @@ test("build request with a valid request object with a custom header should over
   t.deepEqual({
     url: "http://url.com",
     method: "POST",
-    body: null,
+    body: "{}",
     headers: {"content-type":"text/html", accept:"application/json"}
   }, requestObject)
 });
