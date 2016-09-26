@@ -11,39 +11,29 @@ $ npm install --save-dev @swlkr/req
 ## Use
 
 ```javascript
-// Get request
-
 import Http from "@swlkr/req";
 
+// Get request
 Http
-.get("http://your-api.com/some-url")
+.send({ url: "http://your-api.com/some-url", method: "get" })
 .then(res => console.log(res))
 .catch(err => console.log(err))
-```
 
-```javascript
 // Post request
-
 Http
-.post("http://your-api.com/some-url", { prop: "value", prop1: "value1", prop2: "value2" })
+.send({ url: "http://your-api.com/some-url", body: { prop: "value", prop1: "value1", prop2: "value2" }, method: "POST" })
 .then(res => console.log(res))
 .catch(err => console.log(err))
-```
 
-```javascript
 // Custom headers with delete request
-
 Http
-.delete("http://your-api.com/some-url", { Accept: "text/xml" })
+.send({ url: "http://your-api.com/some-url", method: "delete", headers: { Authorization: "super secure json web token" } })
 .then(res => console.log(res))
 .catch(err => console.log(err))
-```
 
-```javascript
 // Using async/await
-
 try {
-  const response = await Http.get("http://your-api.com/some-url")
+  const response = await Http.send({ url: "http://your-api.com/some-url", method: "get" });
   // use response
 } catch(error) {
   console.log(error.message);
