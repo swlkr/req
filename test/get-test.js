@@ -1,10 +1,10 @@
 import test from "ava";
-import Http from "../app";
+import Http from "../index";
 
 test("get request with 404 error", async t => {
   var req = async () => {
     try {
-      return await Http.get("http://api.com/404");
+      return await Http.send({ url: "http://api.com/404", method: "get" });
     } catch(error) {
       return error;
     }
@@ -17,7 +17,7 @@ test("get request with 404 error", async t => {
 
 test("get request with 200 response", async t => {
   var req = async () => {
-    return await Http.get("http://api.com/200")
+    return await Http.send({ url: "http://api.com/200", method: "get" });
   }
 
   var response = await req();
@@ -28,7 +28,7 @@ test("get request with 200 response", async t => {
 test("get request with timeout", async t => {
   var req = async () => {
     try {
-      return await Http.get("http://api.com/504")
+      return await Http.send({ url: "http://api.com/504", method: "get" });
     } catch (error) {
       return error;
     }

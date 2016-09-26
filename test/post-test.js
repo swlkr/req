@@ -1,10 +1,10 @@
 import test from "ava";
-import Http from "../app";
+import Http from "../index";
 
 test("post request with 404 error", async t => {
   var req = async () => {
     try {
-      return await Http.post("http://api.com/404", {});
+      return await Http.send({ url: "http://api.com/404", method: "POST", body: {} });
     } catch(error) {
       return error;
     }
@@ -17,7 +17,7 @@ test("post request with 404 error", async t => {
 
 test("post request with custom headers", async t => {
   var req = async () => {
-    return await Http.post("http://api.com/200", {}, { custom: "header" })
+    return await Http.send({ url: "http://api.com/200", method: "post", body: {}, headers: { custom: "header" } });
   }
 
   var response = await req();
@@ -27,7 +27,7 @@ test("post request with custom headers", async t => {
 
 test("post request with no body", async t => {
   var req = async () => {
-    return await Http.post("http://api.com/200");
+    return await Http.send({ url: "http://api.com/200", method: "post" });
   }
 
   var response = await req();
@@ -38,7 +38,7 @@ test("post request with no body", async t => {
 test("post request with an error", async t => {
   var req = async () => {
     try {
-      return await Http.post("http://api.com/500", {})
+      return await Http.send({ url: "http://api.com/500", method: "post", body: {} });
     } catch(error) {
       return error;
     }
