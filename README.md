@@ -39,6 +39,13 @@ try {
   console.log(error.message);
   console.log(error.status);
 }
+
+// Handling the unfortunate event of a timeout
+// timeout should be an integer that represents milliseconds
+Http
+.send({ url: "http://your-api.com/some-url", method: "GET", timeout: 1000 })
+.then(res => console.log(res))
+.catch(err => console.log(err))
 ```
 
 ### Test

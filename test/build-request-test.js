@@ -20,7 +20,8 @@ test("build request with a valid request object should set request headers", t =
     url: "http://url.com",
     method: "POST",
     body: "{}",
-    headers: {"content-type":"application/json", accept:"application/json"}
+    headers: {"content-type":"application/json", accept:"application/json"},
+    timeout: 10000
   }, requestObject)
 });
 
@@ -31,7 +32,8 @@ test("build request with a valid request object with a lower case method should 
     url: "http://url.com",
     method: "POST",
     body: "{}",
-    headers: {"content-type":"application/json", accept:"application/json"}
+    headers: {"content-type":"application/json", accept:"application/json"},
+    timeout: 10000
   }, requestObject)
 });
 
@@ -42,6 +44,25 @@ test("build request with a valid request object with a custom header should over
     url: "http://url.com",
     method: "POST",
     body: "{}",
-    headers: {"content-type":"text/html", accept:"application/json"}
+    headers: {"content-type":"text/html", accept:"application/json"},
+    timeout: 10000
   }, requestObject)
+});
+
+test("build request with a valid timeout value should be ok", t => {
+  var requestObject = buildRequest({ url: "http://url.com", method: "post", body: null, headers: { "Content-Type": "text/html" }, timeout: 5000 });
+
+  t.deepEqual({
+    url: "http://url.com",
+    method: "POST",
+    body: "{}",
+    headers: {"content-type":"text/html", accept:"application/json"},
+    timeout: 5000
+  }, requestObject)
+});
+
+test("build request with an invalid timeout prop should complain", t => {
+  var requestObject = { url: "http://url.com", method: "post", body: null, headers: { "Content-Type": "text/html" }, timeout: "hahahaha" };
+
+  t.throws(() => buildRequest(requestObject), "requestObject requires an integer for the timeout prop");
 });

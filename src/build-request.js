@@ -4,6 +4,15 @@ function isValidMethod(method) {
   return !!method && validMethods.indexOf(method.toUpperCase()) !== -1;
 }
 
+function isInt(value) {
+  if (isNaN(value)) {
+    return false;
+  }
+
+  var x = parseInt(value, 10);
+  return (x | 0) === x;
+}
+
 module.exports = function buildRequest(requestObject) {
   if(!requestObject) {
     throw new Error("requestObject cannot be null or undefined");
@@ -15,6 +24,10 @@ module.exports = function buildRequest(requestObject) {
 
   if(!isValidMethod(requestObject.method)) {
     throw new Error("requestObject requires a valid method prop (GET, PATCH, POST, PUT, DELETE, or HEAD)");
+  }
+
+  if(!!requestObject.timeout && !isInt(requestObject.timeout)) {
+    throw new Error("requestObject requires an integer for the timeout prop");
   }
 
   // Set headers
@@ -45,6 +58,7 @@ module.exports = function buildRequest(requestObject) {
     url: requestObject.url,
     method: requestObject.method.toUpperCase(),
     body: encodedBody,
-    headers: headers
+    headers: headers,
+    timeout: requestObject.timeout || 10000
   };
 }

@@ -8,13 +8,25 @@ module.exports = function send(obj) {
   var url = requestObject.url;
   var body = requestObject.body;
   var headers = requestObject.headers;
+  var timeout = requestObject.timeout;
 
   return new Promise(function(resolve, reject) {
     // Create a new xml http request object
     // for maximum backwards-compat
     var xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.timeout = 10000;
+
+    // Handle ontimeout event first
+    // A timeout has occurred
+    xhr.ontimeout = function (e) {
+      reject({ message: xhr.statusText, status: xhr.status });
+    };
+
+    // Any other errors where there were no responses
+    // (server unavailable for example), are wrapped up here
+    // in what looks like a js error object
+    xhr.onerror = function (e) {
+      reject({ message: xhr.statusText, status: xhr.status });
+    };
 
     // Setting the headers on the xhr object is a task in and of itself
     // It requires a for loop to loop through the headers object and
@@ -26,18 +38,8 @@ module.exports = function send(obj) {
 
     xhr.onload = function (e) { handleResponse(xhr, resolve, reject); }
 
-    xhr.onerror = function (e) {
-      // Any other errors where there were no responses
-      // (server unavailable for example), are wrapped up here
-      // in what looks like a js error object
-      reject({ message: xhr.statusText, status: xhr.status });
-    };
-
-    xhr.ontimeout = function (e) {
-      // A timeout has occurred
-      reject({ message: xhr.statusText, status: xhr.status });
-    }
-
+    xhr.open(method, url, true);
+    xhr.timeout = timeout;
     xhr.send(body);
   });
 }
