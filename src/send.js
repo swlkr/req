@@ -28,6 +28,10 @@ module.exports = function send(obj) {
       reject({ message: xhr.statusText, status: xhr.status });
     };
 
+    xhr.onload = function (e) { handleResponse(xhr, resolve, reject); }
+
+    xhr.open(method, url, true);
+
     // Setting the headers on the xhr object is a task in and of itself
     // It requires a for loop to loop through the headers object and
     // call a function on the xhr object
@@ -36,9 +40,6 @@ module.exports = function send(obj) {
       xhr.setRequestHeader(keys[i], headers[keys[i]]);
     }
 
-    xhr.onload = function (e) { handleResponse(xhr, resolve, reject); }
-
-    xhr.open(method, url, true);
     xhr.timeout = timeout;
     xhr.send(body);
   });
