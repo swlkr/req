@@ -28,7 +28,7 @@ test("get request with 200 response", async t => {
 test("get request with timeout", async t => {
   var req = async () => {
     try {
-      return await Http.send({ url: "http://api.com/504", method: "get" });
+      return await Http.send({ url: "http://api.com/504", method: "get", timeout: 1 });
     } catch (error) {
       return error;
     }
@@ -36,5 +36,5 @@ test("get request with timeout", async t => {
 
   var response = await req();
 
-  t.deepEqual(response, { message: "Gateway Timeout", status: 504 });
+  t.deepEqual(response, { message: "The request could not complete, a timeout has occurred", status: 504 });
 });

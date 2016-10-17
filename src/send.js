@@ -15,20 +15,25 @@ module.exports = function send(obj) {
     // for maximum backwards-compat
     var xhr = new XMLHttpRequest();
 
-    // Handle ontimeout event first
-    // A timeout has occurred
-    xhr.ontimeout = function (e) {
-      reject({ message: xhr.statusText, status: xhr.status });
-    };
+    // Timeouts don't fire like I expected them
+    // to so instead setTimeout!
+    var timer = window.setTimeout(function() {
+      xhr.abort();
+      reject({ message: "The request could not complete, a timeout has occurred", status: 504 });
+    }, timeout);
 
     // Any other errors where there were no responses
     // (server unavailable for example), are wrapped up here
     // in what looks like a js error object
     xhr.onerror = function (e) {
+      clearTimeout(timer);
       reject({ message: xhr.statusText, status: xhr.status });
     };
 
-    xhr.onload = function (e) { handleResponse(xhr, resolve, reject); }
+    xhr.onload = function (e) {
+      clearTimeout(timer);
+      handleResponse(xhr, resolve, reject);
+    };
 
     xhr.open(method, url, true);
 

@@ -32,10 +32,13 @@ XMLHttpRequest.prototype.send = function(body) {
   }
 
   if(this.hasTimeout) {
-    return this.ontimeout();
+    setTimeout(() => this.onload(), 60000);
+  } else {
+    this.onload();
   }
+};
 
-  this.onload();
+XMLHttpRequest.prototype.abort = function() {
 };
 
 global.window.XMLHttpRequest = XMLHttpRequest;
