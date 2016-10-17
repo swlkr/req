@@ -45,7 +45,10 @@ module.exports = function send(obj) {
       xhr.setRequestHeader(keys[i], headers[keys[i]]);
     }
 
-    xhr.timeout = timeout;
-    xhr.send(body);
+    if(body) {
+      xhr.send(body);
+    } else {
+      xhr.send();
+    }
   });
 }
