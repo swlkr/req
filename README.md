@@ -5,7 +5,7 @@ Zero dependency json http client for the browser
 ## Install
 
 ```bash
-$ npm install --save-dev @swlkr/req
+$ yarn add @swlkr/req
 ```
 
 ## Use
@@ -50,6 +50,6 @@ Http
 
 ### Test
 ```bash
-npm install
-npm test
+yarn
+yarn test
 ```
