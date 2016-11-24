@@ -1,6 +1,6 @@
 {
   "name": "@swlkr/req",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Zero dependency promise-based http library for the browser",
   "main": "index.js",
   "scripts": {

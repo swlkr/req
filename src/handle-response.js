@@ -6,9 +6,11 @@ function isSuccess(xhr) {
 
 function onSuccess(xhr) {
   // Assume the responseText is always json for successful responses
-  var response = JSON.parse(xhr.responseText);
+  if(xhr.responseText) {
+    return JSON.parse(xhr.responseText);
+  }
 
-  return response;
+  return xhr.responseText;
 }
 
 function onError(xhr, reject) {
